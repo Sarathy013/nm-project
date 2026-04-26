@@ -1,0 +1,138 @@
+{
+  "testQueries": [
+    {
+      "id": 1,
+      "query": "What are the symptoms of pneumonia?",
+      "expectedTopics": ["fever", "cough", "chest pain", "shortness of breath"],
+      "category": "symptoms"
+    },
+    {
+      "id": 2,
+      "query": "How do you diagnose type 2 diabetes?",
+      "expectedTopics": ["fasting glucose", "HbA1c", "OGTT", "diagnostic criteria"],
+      "category": "diagnosis"
+    },
+    {
+      "id": 3,
+      "query": "What is the first-line treatment for hypertension?",
+      "expectedTopics": ["thiazide", "ACE inhibitor", "ARB", "calcium channel blocker"],
+      "category": "treatment"
+    },
+    {
+      "id": 4,
+      "query": "What blood pressure target should I aim for in most adults?",
+      "expectedTopics": ["<130/80", "target", "goal"],
+      "category": "guidelines"
+    },
+    {
+      "id": 5,
+      "query": "When should fibrinolysis be used instead of PCI?",
+      "expectedTopics": ["PCI unavailable", "120 minutes", "alteplase", "tenecteplase"],
+      "category": "treatment"
+    },
+    {
+      "id": 6,
+      "query": "What medications are used for mild persistent asthma?",
+      "expectedTopics": ["ICS", "inhaled corticosteroid", "fluticasone", "budesonide"],
+      "category": "treatment"
+    },
+    {
+      "id": 7,
+      "query": "What is the CURB-65 score used for?",
+      "expectedTopics": ["pneumonia", "severity", "Confusion", "Urea", "mortality"],
+      "category": "diagnosis"
+    },
+    {
+      "id": 8,
+      "query": "What are the diagnostic criteria for pneumonia?",
+      "expectedTopics": ["infiltrate", "chest radiograph", "X-ray", "clinical presentation"],
+      "category": "diagnosis"
+    },
+    {
+      "id": 9,
+      "query": "What lifestyle modifications are recommended for diabetes?",
+      "expectedTopics": ["diet", "exercise", "weight loss", "nutrition"],
+      "category": "treatment"
+    },
+    {
+      "id": 10,
+      "query": "Which antihypertensives are safe in pregnancy?",
+      "expectedTopics": ["methyldopa", "labetalol", "nifedipine", "avoid ACE"],
+      "category": "treatment"
+    },
+    {
+      "id": 11,
+      "query": "What is the MONA-B protocol for ACS?",
+      "expectedTopics": ["Morphine", "Oxygen", "Nitroglycerin", "Aspirin", "Beta-blocker"],
+      "category": "treatment"
+    },
+    {
+      "id": 12,
+      "query": "How do you classify asthma severity?",
+      "expectedTopics": ["Intermittent", "Persistent", "symptoms frequency", "nighttime"],
+      "category": "diagnosis"
+    },
+    {
+      "id": 13,
+      "query": "What is the HbA1c target for most diabetic patients?",
+      "expectedTopics": ["<7.0%", "<7%", "target", "goal"],
+      "category": "guidelines"
+    },
+    {
+      "id": 14,
+      "query": "When should spironolactone be added for hypertension?",
+      "expectedTopics": ["resistant hypertension", "3 meds", "uncontrolled"],
+      "category": "treatment"
+    },
+    {
+      "id": 15,
+      "query": "What are the classic symptoms of hyperglycemia?",
+      "expectedTopics": ["polyuria", "polydipsia", "polyphagia", "weight loss"],
+      "category": "symptoms"
+    },
+    {
+      "id": 16,
+      "query": "What is the treatment for severe pneumonia requiring hospitalization?",
+      "expectedTopics": ["beta-lactam", "macrolide", "ceftriaxone", "levofloxacin"],
+      "category": "treatment"
+    },
+    {
+      "id": 17,
+      "query": "What secondary prevention measures are recommended after ACS?",
+      "expectedTopics": ["statin", "ACE inhibitor", "beta-blocker", "cardiac rehab"],
+      "category": "guidelines"
+    },
+    {
+      "id": 18,
+      "query": "How is asthma exacerbation managed in the emergency setting?",
+      "expectedTopics": ["SABA", "ipratropium", "corticosteroids", "oxygen", "magnesium"],
+      "category": "treatment"
+    },
+    {
+      "id": 19,
+      "query": "What are the contraindications for metformin?",
+      "expectedTopics": ["eGFR <30", "contrast procedures", "kidney"],
+      "category": "treatment"
+    },
+    {
+      "id": 20,
+      "query": "What is the DASH diet and how does it help with hypertension?",
+      "expectedTopics": ["fruits", "vegetables", "low-fat dairy", "sodium reduction"],
+      "category": "treatment"
+    }
+  ],
+  "evaluationCriteria": {
+    "accuracy": "Response correctly addresses the query with factually correct information",
+    "relevance": "Response uses information from the retrieved context appropriately",
+    "completeness": "Response covers all key aspects expected for the query",
+    "grounding": "Response does not hallucinate information outside the provided context",
+    "clinicalAppropriateness": "Response is suitable for clinical reference purposes"
+  },
+  "scoringRubric": {
+    "5": "Excellent - Accurate, complete, well-grounded, clinically appropriate",
+    "4": "Good - Mostly accurate and relevant, minor omissions",
+    "3": "Adequate - Correct but incomplete or some irrelevant information",
+    "2": "Poor - Significant omissions, inaccuracies, or hallucinations",
+    "1": "Unacceptable - Wrong, misleading, or dangerous information"
+  }
+}
