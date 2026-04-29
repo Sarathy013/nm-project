@@ -10,7 +10,7 @@ const ChatUI = ({ onContextSelect }) => {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [useRAG, setUseRAG] = useState(true);
+  const [mode, setMode] = useState('document');
   const [showComparison, setShowComparison] = useState(false);
   const messagesEndRef = useRef(null);
 
@@ -63,7 +63,8 @@ const ChatUI = ({ onContextSelect }) => {
           onContextSelect(result.rag.retrievedContext);
         }
       } else {
-        // Standard RAG query
+        // Standard query: document search or medical bot
+        const useRAG = mode === 'document';
         const result = await queryRAG(userQuery, useRAG);
 
         const aiMessage = {
@@ -73,6 +74,7 @@ const ChatUI = ({ onContextSelect }) => {
           retrievedContext: result.retrievedContext,
           retrievedCount: result.retrievedCount,
           processingTime: result.processingTimeMs,
+          mode: mode,
           timestamp: new Date().toISOString()
         };
         setMessages(prev => [...prev, aiMessage]);
@@ -141,6 +143,11 @@ const ChatUI = ({ onContextSelect }) => {
                 <span style={styles.messageSender}>
                   {message.type === 'user' ? 'You' : 'Assistant'}
                 </span>
+                {message.mode && (
+                  <span style={styles.modeBadge}>
+                    {message.mode === 'document' ? 'Document Search' : 'Medical Bot'}
+                  </span>
+                )}
                 <span style={styles.messageTime}>
                   {new Date(message.timestamp).toLocaleTimeString()}
                 </span>
@@ -196,15 +203,30 @@ const ChatUI = ({ onContextSelect }) => {
       {/* Input Area */}
       <form onSubmit={handleSubmit} style={styles.inputForm}>
         <div style={styles.inputControls}>
-          <label style={styles.toggleLabel}>
-            <input
-              type="checkbox"
-              checked={useRAG}
-              onChange={(e) => setUseRAG(e.target.checked)}
-              disabled={showComparison}
-            />
-            <span style={styles.toggleText}>Use RAG Retrieval</span>
-          </label>
+          <div style={styles.modeGroup}>
+            <label style={styles.radioLabel}>
+              <input
+                type="radio"
+                name="mode"
+                value="document"
+                checked={mode === 'document'}
+                onChange={() => setMode('document')}
+                disabled={showComparison}
+              />
+              <span style={styles.toggleText}>Document Search</span>
+            </label>
+            <label style={styles.radioLabel}>
+              <input
+                type="radio"
+                name="mode"
+                value="medical"
+                checked={mode === 'medical'}
+                onChange={() => setMode('medical')}
+                disabled={showComparison}
+              />
+              <span style={styles.toggleText}>Medical Bot</span>
+            </label>
+          </div>
 
           <label style={styles.toggleLabel}>
             <input
@@ -392,7 +414,20 @@ const styles = {
   inputControls: {
     display: 'flex',
     gap: '16px',
-    marginBottom: '12px'
+    marginBottom: '12px',
+    alignItems: 'center'
+  },
+  modeGroup: {
+    display: 'flex',
+    gap: '12px',
+    alignItems: 'center'
+  },
+  radioLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    fontSize: '13px',
+    cursor: 'pointer'
   },
   toggleLabel: {
     display: 'flex',
@@ -400,6 +435,15 @@ const styles = {
     gap: '6px',
     fontSize: '13px',
     cursor: 'pointer'
+  },
+  modeBadge: {
+    marginLeft: '8px',
+    padding: '2px 8px',
+    borderRadius: '999px',
+    backgroundColor: '#e2e8f0',
+    color: '#334155',
+    fontSize: '11px',
+    fontWeight: '600'
   },
   toggleText: {
     color: '#475569'
